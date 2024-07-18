@@ -1,20 +1,10 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}", // Adjust paths to your components and styles
+  ],
+  safelist: [],
   theme: {
     extend: {},
   },
   plugins: [],
-}
-
-// /** @type {import('tailwindcss').Config} */
-// module.exports = {
-//   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-//   theme: {
-//     fontFamily: {
-//       poppins: ["Poppins", "sans-serif"],
-//       BlackOpsOne: ["Black Ops One", "system-ui"]
-//     }
-//   },
-//   plugins: [],
-// }
+};
