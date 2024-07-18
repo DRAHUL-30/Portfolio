@@ -109,13 +109,17 @@ jobs:
         run: |
           rm -rf .github
 
-      - name: Merge LCL-v1.0.0 to master
-        uses: everlytic/branch-merge@1.1.5
-        with:
-          github_token: ${{ secrets.Portfolio_Dev }}
-          source_ref: ${{ github.ref }}
-          target_branch: 'master'
-          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+      - name : Make build
+        run : |
+          npm run build
+
+      # - name: Merge LCL-v1.0.0 to master
+      #   uses: everlytic/branch-merge@1.1.5
+      #   with:
+      #     github_token: ${{ secrets.Portfolio_Dev }}
+      #     source_ref: ${{ github.ref }}
+      #     target_branch: 'master'
+      #     commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
 
   # merge-dev:
   #   runs-on: ubuntu-latest
