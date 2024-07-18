@@ -5,8 +5,43 @@ on:
     branches:
       - LCL-v1.0.0
 
-jobs:
 
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Exclude .github directory
+      run: |
+        rm -rf .github
+
+    - name : Make build
+      run : |
+        npm install
+
+
+        
   # check-dependencies:
   #   runs-on: ubuntu-latest
 
@@ -97,38 +132,7 @@ jobs:
   #         autoflake --remove-all-unused-imports --recursive --exclude=services .
   
 
-  merge-test:
-    runs-on: ubuntu-latest
-
-
-  
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-      steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
-
-
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Exclude .github directory
-        run: |
-          rm -rf .github
-
-      - name : Make build
-        run : |
-          npm install
+      
 
       # - name: Merge LCL-v1.0.0 to master
       #   uses: everlytic/branch-merge@1.1.5
